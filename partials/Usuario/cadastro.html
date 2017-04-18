@@ -1,0 +1,65 @@
+<h1>Cadastro de Usuario</h1>
+<div class="panel" data-ng-controller="UsuarioCtrl as vm">
+	<div class="container container-responsive">
+	<form method="post">
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="nome" class="float-label">Nome</label>
+				<input id="nome" type="text" class="form-control">
+				<span></span>
+			</div>	
+		</div>		
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="email" class="float-label">Email</label>
+				<input id="email" type="text" class="form-control">
+				<span></span>
+			</div>	
+		</div>
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="cpf" class="float-label">CPF</label>
+				<input id="cpf" type="text" class="form-control">
+				<span></span>
+			</div>	
+		</div>		
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="senha" class="float-label">Senha</label>
+				<input id="senha" type="password" class="form-control">
+				<span></span>
+			</div>	
+		</div>	
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="tipo" class="float-label">Tipo</label>
+				<select id="tipo" class="form-control">
+					<option value="ADM">Administrador</option>
+					<option value="COR">Corretor</option>
+				</select>
+				<span></span>
+			</div>	
+		</div>			
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="telefone" class="float-label">Telefone</label>
+				<input id="telefone" type="text" class="form-control">
+				<span></span>
+			</div>	
+		</div>		
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="ativo" class="float-label">Ativo</label>
+				<select id="ativo" class="form-control">
+					<option value="true">Sim</option>
+					<option value="false">Não</option>
+				</select>
+				<span></span>
+			</div>	
+		</div>		
+		<div class="col-md-12">
+			<button id="btn-imovel" data-ng-click="vm.setUsuario()" class="btn ripple pull-right">Cadastro</button>
+		</div>
+	</form>
+	</div>
+</div>

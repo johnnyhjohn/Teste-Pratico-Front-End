@@ -1,0 +1,81 @@
+<h1>Lista de Imóveis</h1>
+<a class='btn-adiciona' href="admin/imoveis/cadastro"><button class="btn btn-success">Adicionar</button></a>
+<div class="panel" data-ng-controller="ImovelCtrl as vm">
+	<div class="container container-responsive">
+<div class="col-md-12">
+<form class="busca">
+	<div class="material-input text-center select">
+		<div class="col-md-3">
+			<label for="nome" class="float-label"><i class="fa fa-search"></i> Busca</label>
+			<input id="nome" type="text" class="form-control">
+		</div>
+		<div class="col-md-3">
+			<select name="" id="" class="form-control float-label">
+				<option value="">Filtro</option>
+			</select>
+		</div>
+		<div class="col-md-3">
+			<select name="" id="" class="form-control float-label">
+				<option value="">Finalidade</option>
+			</select>
+		</div>
+		<div class="col-md-3">
+		<button class="btn btn-success">Pesquisar</button>
+		</div>
+		<span></span>
+	</div>	
+</form>	
+</div>
+		<table class="table">
+			<tr id="table-head">
+				<th id="nome" class="filtro">Codigo</th>
+				<th id="telefone" class="filtro">Nome do Imovel</th>
+				<th id="celular" class="filtro">Corretor</th>
+				<th id="projeto" class="filtro">Tipo</th>
+				<th id="projeto" class="filtro">Reservado</th>
+				<th id="projeto" class="filtro">Finalidade</th>
+				<th>Opções</th>
+			</tr>
+			<tr data-ng-repeat="imovel in vm.imoveis | orderBy:'titulo_anuncio'">
+
+				<td>{{ imovel.id }}</td>
+				<td>{{ imovel.titulo_anuncio }}</td>
+				<td>{{ imovel.endereco }}</td>
+				<td>{{ imovel.tp_imovel.titulo }}</td>
+				<td>{{ imovel.reservado }}</td>
+				<td class="pago">{{ imovel.finalidade }}</td>
+				<td>
+					<a href="admin/imoveis/editar/{{ imovel.id }}"><button class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
+					<button class="btn btn-danger btn-deleta" data-toggle="modal" data-target="#deleteModal-{{imovel.id}}"><i class="fa fa-trash-o"></i></button>
+				
+					<!-- Modal -->
+				  	<div class="modal fade" id="deleteModal-{{ imovel.id }}" data-seletor="{{ imovel.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				    	<div class="modal-dialog" role="document">
+				      		<div class="modal-content">
+				        		<div class="modal-header">
+				          		<h4 class="modal-title" id="myModalLabel">Deseja realmente excluir esse imóvel ?</h4>
+				        	</div>
+				        	<div class="modal-body">
+				        		<div class="col-md-12">
+				          			<form>
+				            			<button data-id="{{ imovel.id }}" class="btn ripple btn-confirm-delete" data-ng-click='vm.deleta()'>Sim</button>
+				            			<button class="btn btn-default ripple btn-close" data-dismiss="modal">Não</button>
+				          			</form>
+				        		</div>
+				        	</div>
+				        	<div class="modal-footer">  
+				        	</div>
+				      	</div>
+				    </div>
+				</td>
+			</tr>
+		</table>
+		<!-- <div class="pagination">
+			<ul>
+				<li class="active"><a href="">1</a></li>
+				<li><a href="">2</a></li>
+			</ul>
+		</div> -->
+	</div>
+</div>
+<ng-include src="'partials/imoveis/excluir.html'"></ng-include>

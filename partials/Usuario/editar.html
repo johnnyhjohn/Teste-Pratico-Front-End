@@ -1,0 +1,70 @@
+<div data-ng-controller="UsuarioCtrl as vm">
+<h1>Editar {{ vm.usuario.nm_usuario }}</h1>
+<div class="panel">
+	<div class="container container-responsive">
+	<form method="post">
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="nome" class="float-label">Nome</label>
+				<input id="nome" type="text" class="form-control" value="{{ vm.usuario.nm_usuario }}">
+				<span></span>
+			</div>	
+		</div>		
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="email" class="float-label">Email</label>
+				<input id="email" type="text" class="form-control" value="{{ vm.usuario.email }}">
+				<span></span>
+			</div>	
+		</div>
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="cpf" class="float-label">CPF</label>
+				<input id="cpf" type="text" class="form-control" value="{{ vm.usuario.nr_cpf }}">
+				<span></span>
+			</div>	
+		</div>		
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="senha" class="float-label">Senha</label>
+				<input id="senha" type="password" class="form-control" value="{{ vm.usuario.password }}">
+				<span></span>
+			</div>
+		</div>	
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="tipo" class="float-label">Tipo</label>
+				<select id="tipo" class="form-control" data-ng-if="vm.usuario.tp_funcionario == 'COR'">
+					<option value="COR">Corretor</option>
+					<option value="ADM">Administrador</option>
+				</select>
+				<select id="tipo" class="form-control" data-ng-if="vm.usuario.tp_funcionario == 'ADM'">
+					<option value="ADM">Administrador</option>
+					<option value="COR">Corretor</option>
+				</select>
+				<span></span>
+			</div>	
+		</div>			
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="vitrine" class="float-label">Telefone</label>
+				<input id="vitrine" type="text" class="form-control" value="{{ vm.usuario.nr_telefone }}">
+				<span></span>
+			</div>	
+		</div>		
+		<div class="col-md-4">
+			<div class="material-input select">
+				<label for="ativo" class="float-label">Ativo</label>
+				<select id="ativo" class="form-control">
+					<option value="ativo">Ativo</option>
+				</select>
+				<span></span>
+			</div>	
+		</div>		
+		<div class="col-md-12">
+			<button id="btn-imovel" data-ng-click='vm.update()' class="btn ripple pull-right">Atualizar</button>
+		</div>
+	</form>
+	</div>
+</div>
+</div>

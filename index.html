@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt_br" >
+    <head>
+        <base href="/">
+        <meta charset="UTF-8">
+        <title>Teste Prático Front End</title>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <div id="loader">
+        <div class="showbox">
+            <div class="loader">
+                <svg class="circular" viewBox="25 25 50 50">
+                  <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <body data-ng-app="fronEndApp">
+        <div id="overlay"></div>
+        <ng-include src="'partials/layouts/header.html'"></ng-include>
+        <section>
+            <div class="container">
+                <div id="panel-master" class="col-md-11 col-md-offset-1 col-xs-offset-0 col-xs-10">
+                    <div data-ng-view></div>
+                </div>
+            </div>
+        </section>
+    </body>
+    <footer>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-route/angular-route.min.js"></script>
+        <script src="bower_components//satellizer/satellizer.js"></script>
+        <script src="bower_components/Chart.js/Chart.min.js"></script>
+        <script src="app/app.module.js"></script>
+        <script src="app/routes.config.js"></script>
+        <script src="app/services/Service.js"></script>
+        <script src="app/controllers/Entrega/EntregaCtrl.js"></script>
+        <script src="app/controllers/Pedidos/PedidosCtrl.js"></script>
+        <script src="app/controllers/Usuario/UsuarioCtrl.js"></script>
+        <div class="map"></div>
+    </footer>
+</html>
