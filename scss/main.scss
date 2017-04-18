@@ -1,0 +1,73 @@
+section#admin{
+    margin-top: 70px;
+    margin-left: 190px;
+    transition: all ease .2s;
+    > div > h3{
+        color: rgba(0,0,0,0.6);
+        margin-left: 10px;
+        margin-bottom: 10px;
+        margin-top: 75px;
+    }
+    > div > .btn{
+        margin: 0px 7px 15px;
+    }
+}
+
+aside{
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 39;
+    width: 180px;
+    background: #5f6b73;
+    height: 100%;
+    transition: all ease .2s;
+    nav > ul{
+        padding: 0;
+    } 
+    li{
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        background-color: rgba(0,0,0,0);
+        text-transform: uppercase;
+        transition: all ease .2s;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(0,0,0, 0.1);
+            a{
+                color: rgba(255,255,255,1);
+                text-decoration: none;
+            }
+        }
+    }
+    a{
+        color: rgba(255,255,255,.74);
+        transition: all ease .2s;
+        display: block;
+        height: 40px;
+        padding-left: 10px;
+        padding: 10px;
+    }
+    .submenu{
+        border-top: 1px solid rgba(0,0,0,0.1);
+        background: rgba(0,0,0,0.1);
+        text-transform: lowercase;
+        padding: 0;
+        li{
+            text-transform: capitalize;
+        }
+    }
+}
+
+.entregue{
+    color: $green;
+}
+.parado{
+    color: $red;
+}
+.pendente{
+    color: $yellow;
+}
+
+#imagem-thumb{
+    max-height: 200px;
+}

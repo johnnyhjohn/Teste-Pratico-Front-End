@@ -3,116 +3,95 @@
 
 	angular.module('fronEndApp').controller('EntregaCtrl', Entrega);
 
-	Entrega.injector = ["Request", "URL", "$routeParams"];
+	Entrega.injector = ["URL", "$routeParams"];
 
-	function Entrega(Request, URL, $routeParams){
+	function Entrega(URL, $routeParams){
 
 		var vm = this;
 
-		active();
+        vm.entregas = [
+            {
+                id          : 1,
+                local       : "Rua Cesário Alvin",
+                cidade   	: "Ponta Grossa",
+                estado      : "Paraná",
+                status 		: 'Entregue'
+            },
+            {
+                id          : 2,
+                local       : "Rua Doutor Colares",
+                cidade   	: "Ponta Grossa",
+                estado      : "Paraná",
+                status 		: 'Entregue'
+            },
+            {
+                id          : 3,
+                local       : "Centro",
+                cidade   	: "Curitiba",
+                estado      : "Paraná",
+                status 		: 'Parado'
+            },
+            {
+                id          : 4,
+                local       : "Rua Cesário Alvin",
+                cidade   	: "Ponta Grossa",
+                estado      : "Paraná",
+                status 		: 'Entregue'
+            },
+            {
+                id          : 5,
+                local       : "Rua Cesário Alvin",
+                cidade   	: "Ponta Grossa",
+                estado      : "Paraná",
+                status 		: 'Entregue'
+            },
+            {
+                id          : 6,
+                local       : "Rua Cesário Alvin",
+                cidade   	: "Ponta Grossa",
+                estado      : "Paraná",
+                status 		: 'Entregue'
+            },
+        ];
 
-		function active(){
-			var functions = [getPessoas(), getPessoa()];
-		}
+        vm.addEntrega = function( entrega ) {
 
-		vm.setPessoa = function(){
-			var data = {
-				token 	 : vm.user.token.token,
-				nome 	 : $("#nome").val(),
-				dta_nasc : $("#dta_nasc").val(),
-				email 	 : $("#email").val(),
-				telefone : $("#telefone").val(),
-				endereco : $("#endereco").val(),
-				bairro 	 : $("#bairro").val(),
-				cep 	 : $("#cep").val(),
-				cpf 	 : $("#cpf").val(),
-				rg 		 : $("#rg").val(),
-				cidade 	 : $("#cidade").val(),
-				lat 	 : $(".lat").val(),
-				lng 	 : $(".lng").val()
-			}
-			Request.set("pessoa", data).then(function(res){
-				var alerta = new alert();
-				if(res[0].codigo == "SUCCESS"){
-					alerta.success(res[0].mensagem);
-					$("form").find('input, textarea').each(function(key, value){
-						$(value).val('');
-					});
-				}else if(res[0].codigo == "DANGER"){
-					alerta = new alert();
-					alerta.danger(res[0].mensagem);
-				}
-				return res;
-			});
-		}
+            if(entrega == undefined || entrega.local == "" && entrega.cidade == "" && entrega.estado == ""){
+                $('.message').html("<p style='color:red'>Preenchar todos os Campos</p>");
+                return false;
+            }
 
-		vm.update = function(){
-			var data = {
-				token 	 : vm.user.token.token,
-				nome 	 : $("#nome").val(),
-				dta_nasc : $("#dta_nasc").val(),
-				email 	 : $("#email").val(),
-				telefone : $("#telefone").val(),
-				endereco : $("#endereco").val(),
-				bairro 	 : $("#bairro").val(),
-				cep 	 : $("#cep").val(),
-				cpf 	 : $("#cpf").val(),
-				rg 		 : $("#rg").val(),
-				cidade 	 : $("#cidade").val(),
-				lat 	 : $(".lat").val(),
-				lng 	 : $(".lng").val()
-			};
+            let novoEntrega = {
+                id      : (vm.entregas[vm.entregas.length - 1].id) + 1,
+                local   : entrega.local,
+                cidade  : entrega.cidade,
+                estado  : entrega.estado,
+                status 	: 'Pendente'
+            }
 
-			Request.put("pessoa/" + $routeParams.slug, data)
-				.then(function(res){
-					console.log(res, data);
-					var alerta = new alert();
-					if(res[0].codigo == "SUCCESS"){
-						alerta.success(res[0].mensagem);
-					}else if(res[0].codigo == "DANGER"){
-						alerta = new alert();
-						alerta.danger(res[0].mensagem);
-					}
-					return res;
-			});
+            vm.entregas.push(novoEntrega);
 
-		}
+            $('.modal').modal('hide');
+            $('input').val('');
+            $('.message').html('');
+        };
 
-		vm.deleta = function(){
+        vm.deletaEntrega = function( entrega_id ) {
+            
+            // let novosEntrega = vm.entregas.filter( function (pedido){
+            //     if(pedido.id != entrega_id) return pedido;
+            // });
+            let novosEntrega = [];
 
-			var id = event.srcElement.attributes[0].value;
-			var tr = $(event.srcElement).closest('tr');
-			Request.destroy('pessoa/' + id)
-				.then(function(res){
-					var alerta = new alert();
-					if(res[0].codigo == "SUCCESS"){
-						alerta.successDeleta(tr, res[0].mensagem);
-					}else if(res[0].codigo == "DANGER"){
-						alerta = new alert();
-						alerta.danger(res[0].mensagem);
-					}					
-					return res;
-			})
-		}
-
-		function getPessoas(){
-			Request.get("pessoa").then(function(res){
-				angular.forEach(res[0].objeto, function(value, key) {
-					(value.ativo == true) ? value.ativo = "Ativo" : value.ativo = "Inativo";
-				});
-				console.log(res);
-				vm.pessoas = res[0].objeto;
-			});
-		}
-
-		function getPessoa(){
-			if($routeParams.slug !== undefined){
-				Request.get("pessoa/" + $routeParams.slug)
-					.then(function(res){
-						vm.pessoa = res[0].objeto;
-				});
-			}
-		}
+            vm.entregas.map((value, key) => {
+                if(value.id == entrega_id){
+                    delete vm.entregas[key];
+                } else{
+                    novosEntrega.push(value);
+                }
+            })
+            vm.entregas = novosEntrega;
+        };
 	}
 
 })();

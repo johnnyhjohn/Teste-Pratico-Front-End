@@ -5,63 +5,28 @@
         <span></span>
     </div>
     <div class="btns">
-        <div v-if="countPedidos > 0" class="notificacao active">
-            <i class="fa fa-bell"></i>
-        </div>
-        <div v-if="countPedidos == 0" class="notificacao">
-            <i class="fa fa-bell-o"></i>
-        </div>
-        <div class="usuario">
-            <!-- <figure class="avatar">
-                <img src="{{ Auth::user()->imagem }}" class="avatar-image">
+        <div class="usuario" data-ng-controller="UsuarioCtrl as vm">
+            <figure class="avatar">
+                <img data-ng-src="{{ vm.usuario.avatar }}" class="avatar-image">
             </figure>
-            <a href="/admin/usuario">{{ Auth::user()->name }}</a> -->
+            <a href="usuario">{{ vm.usuario.nome }}</a>
         </div>
         <div class="logout">
-            <a href="/logout">Sair <i class="fa fa-sign-out"></i></a>
+            <a href="logout">Sair <i class="fa fa-sign-out"></i></a>
         </div>
     </div>
 </header>
 <aside>
     <nav>
         <ul>
-            <li data-toggle="tooltip" data-title="Dashboard">
-                <a href="/admin/"><i class="fa fa-dashboard"></i> Dashboard</a>
-            </li>
             <li data-toggle="tooltip" data-title="Pedidos">
-                <a href="/admin/pedidos"><i class="fa fa-list-alt"></i> Pedidos</a>
-                <ul class="submenu">
-                    <li><a href="/admin/pedidos/">Listar Pedidos</a></li>
-                    <li><a href="/admin/pedidos/finalizados">Pedidos Finalizados</a></li>
-                    <li><a href="/admin/pedidos/inserir">Inserir Pedidos</a></li>
-                </ul>
+                <a href="pedidos"><i class="fa fa-list-alt"></i> Pedidos</a>
             </li>
-            <li data-toggle="tooltip" data-title="Produtos">
-                <a href="/admin/produtos/"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Produtos</a>
-                <ul class="submenu">
-                    <li><a href="/admin/produtos/">Listar Produtos</a></li>
-                    <li><a href="/admin/produtos/inserir">Inserir Produtos</a></li>
-                </ul>
+            <li data-toggle="tooltip" data-title="Entregas">
+                <a href="entregas"><i class="fa fa-bar-chart-o"></i> Entregas</a>
             </li>
-            <li data-toggle="tooltip" data-title="Clientes">
-                <a href="/admin/clientes/"><i class="fa fa-users"></i> Clientes</a>
-                <ul class="submenu">
-                    <li><a href="/admin/clientes/">Listar Clientes</a></li>
-                    <li><a href="/admin/clientes/inserir">Inserir Clientes</a></li>
-                </ul>
-            </li>
-            <li data-toggle="tooltip" data-title="Ingredientes">
-                <a href="/admin/ingredientes/"><i class="fa fa-lemon-o"></i> Ingredientes</a>
-                <ul class="submenu">
-                    <li><a href="/admin/ingredientes/">Listar Ingredientes</a></li>
-                    <li><a href="/admin/ingredientes/inserir">Inserir Ingredientes</a></li>
-                </ul>
-            </li>
-            <li data-toggle="tooltip" data-title="Relatórios">
-                <a href="/admin/relatorios"><i class="fa fa-bar-chart-o"></i> Relatórios</a>
-            </li>
-            <li data-toggle="tooltip" data-title="Configurações">
-                <a href="/admin/relatorios"><i class="fa fa-cog"></i> Configurações</a>
+            <li data-toggle="tooltip" data-title="Usuário">
+                <a href="usuario"><i class="fa fa-user"></i> Usuário</a>
             </li>
         </ul>
     </nav>

@@ -1,81 +1,53 @@
-<h1>Lista de Pessoas</h1>
-<a class='btn-adiciona' href="admin/pessoas/cadastro"><button class="btn btn-success">Adicionar</button></a>
-<div class="panel" data-ng-controller="PessoaCtrl as vm">
-	<div class="container container-responsive">
-		<div class="col-md-12">
-		<form class="busca">
-			<div class="material-input select">
-				<div class="col-md-4">
-					<label for="busca" class="float-label"><i class="fa fa-search"></i> Busca</label>
-					<input data-ng-keypress="vm.busca()" id="busca" type="text" class="form-control">
-					<span></span>
-				</div>
-				<div class="col-md-4">
-					<select 
-						data-ng-change='vm.busca()' 
-						data-ng-model='vm.coluna'
-						data-ng-options='template.value as template.name for template in vm.colunas track by template.value' 
-						name="" 
-						id="coluna" 
-						class="form-control float-label">
-					</select>
-				</div>
-				<span></span>
-			</div>	
-		</form>	
- 		</div>
-		<hr>
-		<table class="table">
-			<tr id="table-head">
-				<th id="nome" class="filtro">Código</th>
-				<th id="nome" class="filtro">Nome</th>
-				<th id="projeto" class="filtro">Email</th>
-				<th id="celular" class="filtro">Telefone</th>
-				<th id="telefone" class="filtro">Endereço</th>
-				<th>Opções</th>
-			</tr>
-			<tr class="text-center" data-ng-if="vm.pessoas == null || vm.pessoas == '' ">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td>Nenhum
-				registro
-				encontrado</td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr data-ng-repeat="pessoa in vm.pessoas">
-				<td>{{ pessoa.id }}</td>
-				<td>{{ pessoa.nm_pessoa }}</td>
-				<td>{{ pessoa.email }}</td>
-				<td>{{ pessoa.nr_telefone }}</td>
-				<td>{{ pessoa.endereco }}</td>
-				<td>
-					<a href="admin/pessoas/editar/{{ pessoa.id }}"><button class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-					<button class="btn btn-danger btn-deleta" data-toggle="modal" data-target="#deleteModal-{{pessoa.id}}"><i class="fa fa-trash-o"></i></button>
-
-			    <!-- Modal -->
-			  	<div class="modal fade" id="deleteModal-{{ pessoa.id }}" data-seletor="{{ pessoa.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			    	<div class="modal-dialog" role="document">
-			      		<div class="modal-content">
-			        		<div class="modal-header">
-			          		<h4 class="modal-title" id="myModalLabel">Deseja realmente excluir {{ pessoa.nm_pessoa }} ?</h4>
-			        	</div>
-			        	<div class="modal-body">
-			        		<div class="col-md-12">
-			          			<form>
-			            			<button data-id="{{ pessoa.id }}" class="btn ripple btn-confirm-delete" data-ng-click='vm.deleta()'>Sim</button>
-			            			<button class="btn btn-default ripple btn-close" data-dismiss="modal">Não</button>
-			          			</form>
-			        		</div>
-			        	</div>
-			        	<div class="modal-footer">  
-			        	</div>
-			      	</div>
-			    </div>						
-				</td>			
-			</tr>
-		</table>
-	</div>
+<div data-ng-controller="EntregaCtrl as vm">
+<h3>Lista de Entregas</h3>
+<a data-toggle="modal" data-target="#addPedido" class="btn btn-green">Adicionar Novo</a>
+<div id="busca">
+	<label for="busca"><i class="fa fa-search"></i></label>
+	<input data-ng-model="busca" id="busca" type="text" placeholder="Busca">
 </div>
+<div class="panel form">
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">Cod</th>
+				<th class="text-left">Local</th>
+				<th>Cidade</th>
+				<th class="text-left">Estado</th>
+				<th class="text-left">Status</th>
+			</tr>
+		</thead>
+		<tbody class="table">
+			<tr data-ng-repeat="entrega in vm.entregas | filter:busca">
+				<td class="text-left">  {{ entrega.id }}</td>
+				<td> {{ entrega.local }}</td>	
+				<td> {{ entrega.cidade }}</td>	
+				<td class="text-left"> {{ entrega.estado }}</td>
+				<td class="text-left {{ entrega.status.toLowerCase() }}"> {{ entrega.status }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+    <!-- Modal -->
+<div class="modal fade" id="addPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Adicionar Pedido</h4>
+        </div>
+        <div class="modal-body">
+        	<form>
+        		<input type="text" placeholder="Bairro" data-ng-model="entrega.local" class="form-control"><br>
+        		<input type="text" placeholder="Cidade" data-ng-model="entrega.cidade" class="form-control"><br>
+        		<input type="text" placeholder="Estado" data-ng-model="entrega.estado" class="form-control">
+        	</form>
+        	<div class="message"></div>
+        </div>
+        <div class="modal-footer">  
+            <button data-ng-click="vm.addEntrega( entrega )" class="btn btn-green">Cadastrar</button>
+            <button class="btn btn-default ripple btn-close">Não</button>
+        </div>
+    </div>
+</div>
+
+</div> 

@@ -1,3 +1,26 @@
+body.full {
+	header.admin{
+		width: calc(100% - 50px);
+	}
+	aside{
+		width: 50px;
+		li{
+			text-align: center;
+			a{
+				font-size: 0;
+				.fa{
+					font-size: 2rem;
+				}
+			}
+		}
+		.submenu{
+			display: none;
+		}
+	}
+	section#admin{
+		margin-left: 60px;	
+	}
+}
 header{
 	margin-bottom: 50px;
 	box-shadow: 0 3px 4px rgba(0,0,0,0.2);
@@ -256,4 +279,59 @@ header{
 	    	}
 	    }
 	}
+}
+
+.btns{
+    float: right;
+    height: 100%;
+}
+
+.btns > div{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    float: left;
+    color: white;
+    border-left: 1px solid rgba(0,0,0,0.1);
+}
+
+.btns a{
+    color: white;
+}
+.btn-burguer{
+    display: inline-block;
+    height: 47px;
+    width: 50px;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    margin-right: 10px;
+    float: left;
+    padding: 13px 5px;
+    transition: all ease .2s;
+}
+
+.btn-burguer span{
+    width: 80%;
+    height: 2px;
+    background: #fff;
+    display: block;
+    margin: auto;
+    margin-bottom: 7px;
+    transform-origin: left;
+    transition: all ease .2s;
+}
+.btn-burguer.active{
+    transform: rotate(180deg);
+}
+.btn-burguer.active span:first-child{
+    width: 40%;
+    transform: rotate(-45deg) translateX(-9px) translateY(4px);
+}
+.btn-burguer.active span:nth-child(2){
+    width: 60%;
+    transform: translateX(0px);
+}
+.btn-burguer.active span:last-child{
+    width: 40%;
+    transform: rotate(45deg) translateX(-9px) translateY(-4px);
 }

@@ -6,7 +6,7 @@
 	// Constantes para caminhos de request ou pastas
 	let constantes = {
 		data 	: window.location.origin + '/data/',
-		partials: window.location.origin + '/partials/'
+		partials: window.location + '/partials/'
 	}
 
 	angular.module('fronEndApp').constant('URL', constantes);

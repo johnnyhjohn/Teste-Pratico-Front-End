@@ -1,119 +1,92 @@
 (function(){
-  'use strict';
+    'use strict';
 
-  angular.module('fronEndApp').controller('PedidosCtrl', Pedidos);
+    angular.module('fronEndApp').controller('PedidosCtrl', Pedidos);
 
-  Pedidos.inject = ['$interval'];
+    Pedidos.inject = ['$interval'];
 
-  function Pedidos($interval){
+    function Pedidos($interval, URL){
 
-    var vm = this;
-    var intervalo;
+        var vm = this;
+        // Os produtos devem conter nome, descrição e imagem
+        vm.pedidos = [
+            {
+                id          : 1,
+                nome        : "Sony Xperia Z3",
+                descricao   : "Celular da Sony, com camera poderosa.",
+                imagem      : "image/celular.jpg",
+            },
+            {
+                id          : 2,
+                nome        : "Sony Xperia Z5",
+                descricao   : "Celular da Sony, com camera poderosa.",
+                imagem      : "image/celular.jpg",
+            },
+            {
+                id          : 3,
+                nome        : "Moto G3",
+                descricao   : "Celular da motorola.",
+                imagem      : "image/celular.jpg",
+            },
+            {
+                id          : 4,
+                nome        : "Nokia Boladão",
+                descricao   : "Celular mais forte que a Terra.",
+                imagem      : "image/celular.jpg",
+            },
+            {
+                id          : 5,
+                nome        : "Sony Xperia Z3",
+                descricao   : "Celular da Sony, com camera poderosa.",
+                imagem      : "image/celular.jpg",
+            },
+            {
+                id          : 6,
+                nome        : "Sony Xperia Z3",
+                descricao   : "Celular da Sony, com camera poderosa.",
+                imagem      : "image/celular.jpg",
+            },
+        ];
 
-    intervalo = $interval(function(){
-        try {
-            if(vm.verificador === true){
-                $interval.cancel(intervalo);
+        vm.addPedido = function( pedido ) {
+
+            if(pedido == undefined || pedido.nome == "" && pedido.descricao == ""){
+                $('.message').html("<p style='color:red'>Preenchar todos os Campos</p>");
                 return false;
             }
-            mapaMetaBox();
-        } catch(e) {
-            $("#pac-input").css("display","none");
-            //console.log(e);
-        }
-    
-    },500);
 
-    $("footer .map").html('<script async type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>');
-    function mapaMetaBox() {
-        var latitude   = Number($("#map").data('lat'))
-        ,    longitude = Number($("#map").data('long'));
+            let novoPedido = {
+                id      : (vm.pedidos[vm.pedidos.length - 1].id) + 1,
+                nome    : pedido.nome,
+                descricao    : pedido.descricao,
+                imagem  : "image/no-image.png",
+            }
 
-        var mapOptions = {
-            center: {lat: latitude, lng: longitude},
-            zoom: 13,
-            scrollwheel: false
+            vm.pedidos.push(novoPedido);
+            $('.modal').modal('hide');
+            $('input').val('');
+            $('.message').html('');
+
+            pedido = {};
         };
 
-        var map   = new google.maps.Map(document.getElementById('map'),mapOptions);
+        vm.deletaPedido = function( pedido_id ) {
+            
+            // let novosPedidos = vm.pedidos.filter( function (pedido){
+            //     if(pedido.id != pedido_id) return pedido;
+            // });
+            let novosPedidos = [];
 
-        var input = (document.getElementById('pac-input'));
-
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        autocomplete.bindTo('bounds', map);
-
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-        var marker = new google.maps.Marker({
-            position : {lat: latitude, lng: longitude},
-            map: map,
-            icon: '../image/pin.png'
-        });
-
-        var infowindow = new google.maps.InfoWindow();
-
-        google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map, marker);
-        });
-        
-        $("#pac-input").css("display","block");
-        vm.verificador = true;
-
-        function finishAutoComplete(){
-            infowindow.close();
-            var place = autocomplete.getPlace();
-
-            if (!place.geometry) {
-                return;
-            }
-
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
-            } else {
-                map.setCenter(place.geometry.location);
-                map.setZoom(17);
-            }
-
-            marker.setPlace(/** @type {!google.maps.Place} */ ({
-                placeId: place.place_id,
-                location: place.geometry.location
-            }));
-            marker.setVisible(true);
-
-            if(place.address_components){
-                $.each(place.address_components, function(index, val) {
-                    if(val.types[0] == "administrative_area_level_2" ||
-                        val.types[0] == "locality"){
-                        $(".cidade").val(val.long_name)
-                            .siblings('label').addClass('label-active')
-                            .siblings('span').addClass('input-focus');
-                    }else if(val.types[0] == "sublocality_level_1"){
-                        $(".bairro").val(val.long_name)
-                            .siblings('label').addClass('label-active')
-                            .siblings('span').addClass('input-focus');
-                    }else if(val.types[0] == "route"){
-                        $(".endereco").val(val.long_name)
-                            .siblings('label').addClass('label-active')
-                            .siblings('span').addClass('input-focus');
-                    }
-                });
-            }
-
-            $("#lat").val(place.geometry.location.lat)
-            $("#lng").val(place.geometry.location.lng)
-
-            infowindow.setContent('\
-                <div><strong>' + place.name + '</strong><br>'
-                + place.formatted_address + 
-            '</div>');
-            infowindow.open(map, marker);
-
-        }
-
-        google.maps.event.addListener(autocomplete, 'place_changed', finishAutoComplete);      
-    } 
-
-}     
+            vm.pedidos.map((value, key) => {
+                if(value.id == pedido_id){
+                    delete vm.pedidos[key];
+                } else{
+                    novosPedidos.push(value);
+                }
+            })
+            vm.pedidos = novosPedidos;
+        };
+    }     
 
 
 })();

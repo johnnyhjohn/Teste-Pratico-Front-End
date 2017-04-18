@@ -116,10 +116,10 @@
 
       	function getRoutes(){
       		return [
-                montaRota('/',        'Pedidos/index.html', 'PedidosCtrl'),
-                montaRota('/sobre',   '/Site/sobre.html', 'ImovelCtrl'),
-                montaRota('/vendas',  '/Site/vendas.html', 'ImovelCtrl'),
-                montaRota('/contato', '/Site/contato.html', 'ImovelCtrl'),
+                montaRota('/',          '/Pedidos/lista.html',  'PedidosCtrl'),
+                montaRota('/pedidos',   '/Pedidos/lista.html',  'PedidosCtrl'),
+                montaRota('/usuario',   '/Usuario/lista.html',  'UsuarioCtrl'),
+                montaRota('/entregas',  '/Entrega/lista.html',  'EntregaCtrl')
       		]
       	}
     }
